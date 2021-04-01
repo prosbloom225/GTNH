@@ -8,8 +8,8 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class BatteryID implements Serializable {
+public class PowerID implements Serializable {
 
-    private Date createDateTime;
+    private Date timestamp;
     private String label;
 }
