@@ -23,10 +23,16 @@ public class Power implements Serializable {
     private String label;
 
     private Boolean enabled;
+    private Boolean maintenance;
 
     @PrePersist
     protected void onCreate() {
         timestamp = new Date();
     }
 
+
+    @Override
+    public String toString() {
+        return String.format("%s-%s;%s", label, enabled, maintenance);
+    }
 }

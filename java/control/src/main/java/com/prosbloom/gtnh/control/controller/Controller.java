@@ -8,6 +8,7 @@ import com.prosbloom.gtnh.control.repo.ItemRepository;
 import com.prosbloom.gtnh.control.repo.BatteryRepository;
 import com.prosbloom.gtnh.control.repo.PowerRepository;
 import com.prosbloom.gtnh.control.service.BatteryService;
+import com.prosbloom.gtnh.control.service.PowerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class Controller {
 
     @Autowired
     private BatteryService batteryService;
+
+    @Autowired
+    private PowerService powerService;
 
     @PostMapping(path = "/item", consumes="application/x-www-form-urlencoded;charset=UTF-8")
     public String item(@RequestParam Map<String, String> body) throws Exception {
@@ -73,15 +77,21 @@ public class Controller {
         for (Power p : powers) {
             log.debug("parsed power: {}", p.getLabel());
             Power prev = powerRepository.findFirstByLabelOrderByTimestampDesc(p.getLabel());
-            if (prev == null || prev.getEnabled() != p.getEnabled())
+            // TODO - move to compare operator .. account for all relevant fields
+            if (prev == null || prev.getEnabled() != p.getEnabled() || prev.getMaintenance() != p.getMaintenance())
                 powerRepository.save(p);
         }
         log.info("parsed power successfully");
         return "";
     }
 
-    @GetMapping(path = "/power")
-    public String getPower() throws Exception {
+    @GetMapping(path = "/getBatteryTotal")
+    public String getBatteryTotal() throws Exception {
         return batteryService.getBatteryLevels();
+    }
+
+    @GetMapping(path = "/getPowers")
+    public String getPowers() throws Exception {
+        return powerService.getPowerStatus();
     }
 }
