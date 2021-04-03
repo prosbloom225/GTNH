@@ -10,7 +10,7 @@ import java.util.List;
 public interface PowerRepository extends CrudRepository<Power, PowerID> {
     public Power findFirstByLabelOrderByTimestampDesc(String label);
 
-    @Query(value = "select b.* from (select max(timestamp) as tmst, label from POWER group by label) a " +
-            "inner join POWER b on a.tmst = b.timestamp and a.label = b.label", nativeQuery = true)
+    @Query(value = "select b.* from (select max(timestamp) as tmst, label from power group by label) a " +
+            "inner join power b on a.tmst = b.timestamp and a.label = b.label", nativeQuery = true)
     public List<Power> getCurrentPower();
 }

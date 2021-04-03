@@ -27,6 +27,8 @@ public class Battery implements Serializable {
     private BigDecimal maxPower;
     private Double amps;
     private Double volts;
+    private BigDecimal input;
+    private BigDecimal output;
 
     @PrePersist
     protected void onCreate() {
