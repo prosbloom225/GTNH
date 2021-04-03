@@ -1,9 +1,11 @@
 package com.prosbloom.gtnh.control.controller;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.prosbloom.gtnh.control.dto.Fluid;
 import com.prosbloom.gtnh.control.dto.Item;
 import com.prosbloom.gtnh.control.dto.Battery;
 import com.prosbloom.gtnh.control.dto.Power;
+import com.prosbloom.gtnh.control.repo.FluidRepository;
 import com.prosbloom.gtnh.control.repo.ItemRepository;
 import com.prosbloom.gtnh.control.repo.BatteryRepository;
 import com.prosbloom.gtnh.control.repo.PowerRepository;
@@ -30,6 +32,9 @@ public class Controller {
     private ItemRepository itemRepository;
 
     @Autowired
+    private FluidRepository fluidRepository;
+
+    @Autowired
     private BatteryRepository batteryRepository;
 
     @Autowired
@@ -52,6 +57,20 @@ public class Controller {
             log.debug("parsed item: {}", i.getLabel());
         }
         log.info("parsed inventory successfully");
+        return "";
+    }
+
+    @PostMapping(path = "/fluid", consumes="application/x-www-form-urlencoded;charset=UTF-8")
+    public String fluid(@RequestParam Map<String, String> body) throws Exception {
+        body.keySet().forEach(log::debug);
+        body.values().forEach(log::debug);
+
+        Fluid[] fluids= mapper.readValue(body.get("Fluids"), Fluid[].class);
+        for (Fluid f : fluids) {
+            fluidRepository.save(f);
+            log.debug("parsed item: {}", f.getLabel());
+        }
+        log.info("parsed fluids successfully");
         return "";
     }
 
