@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -68,7 +69,7 @@ public class Controller {
         Fluid[] fluids= mapper.readValue(body.get("Fluids"), Fluid[].class);
         for (Fluid f : fluids) {
             fluidRepository.save(f);
-            log.debug("parsed item: {}", f.getLabel());
+            log.debug("parsed fluid: {}", f.getLabel());
         }
         log.info("parsed fluids successfully");
         return "";
