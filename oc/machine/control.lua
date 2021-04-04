@@ -11,7 +11,16 @@ local oreCentrifuge = {
   ['Endstone Dust'] = 1,
   ['Powellite Dust'] = 6,
   ['Black Granite Dust'] = 5,
+  ['Diatomite Dust'] = 10,
   ['Vanadium Magnetite Dust'] = 2,
+  ['Basaltic Mineral Sand'] = 1,
+  ['Rare Earth'] = 1,
+  ['Uranium 238 Dust'] = 1,
+  ['Garnet Sand'] = 2,
+  ['Realgar Dust'] = 2,
+  ['^Impure Pile of.*'] = 1,
+  ['^Purified.*'] = 1,
+
 }
 
 local oreElectrolyzer = {
@@ -54,6 +63,12 @@ local oreElectrolyzer = {
   ['Tungstate Dust'] = 7,
   ['Saltpeter Dust'] = 5,
   ['Pollucite Dust'] = 11,
+  ['Bentonite'] = 30,
+  ['Phosphate Dust'] = 5,
+  ['Fullers Earth'] = 21,
+  ['Barite Dust'] = 6,
+  ['Soapstone Dust'] = 21,
+  ['Rock Salt'] = 2,
 }
 
 a = Machine:new("Centrifuge", oreCentrifuge, 'eea4e270-1c1c-4884-a2d1-46daaa3893e6', sides.left, sides.back, sides.front, true, false)
@@ -67,7 +82,7 @@ while (true) do
   coroutine.resume(c)
   coroutine.resume(e)
   print('---')
-  os.sleep(0.5)
+  os.sleep(0.1)
 end
 
 --[[
